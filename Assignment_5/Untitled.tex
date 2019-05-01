@@ -1,0 +1,877 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Untitled}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{requests}
+        \PY{k+kn}{import} \PY{n+nn}{bs4}
+        \PY{k+kn}{from} \PY{n+nn}{bs4} \PY{k}{import} \PY{n}{BeautifulSoup}
+        \PY{k+kn}{from} \PY{n+nn}{requests\PYZus{}oauthlib} \PY{k}{import} \PY{n}{OAuth1}
+        \PY{k+kn}{import} \PY{n+nn}{tweepy}
+        \PY{k+kn}{from} \PY{n+nn}{pprint} \PY{k}{import} \PY{n}{pprint}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{functools} \PY{k}{import} \PY{n}{reduce}
+        \PY{k+kn}{from} \PY{n+nn}{wordcloud} \PY{k}{import} \PY{n}{WordCloud}\PY{p}{,} \PY{n}{STOPWORDS}\PY{p}{,} \PY{n}{ImageColorGenerator}
+        \PY{k+kn}{from} \PY{n+nn}{collections} \PY{k}{import} \PY{n}{Counter}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{pickle}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+\end{Verbatim}
+
+
+    \hypertarget{question-1}{%
+\subsection{Question 1}\label{question-1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}all\PYZus{}tweets}\PY{p}{(}\PY{n}{screen\PYZus{}name}\PY{p}{)}\PY{p}{:}
+             \PY{n}{all\PYZus{}tweets} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{uth\PYZus{}params} \PY{o}{=} \PY{p}{\PYZob{}}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{app\PYZus{}key}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wgl4KJ4mMyrUsFJWwJSWvAZs0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{app\PYZus{}secret}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ZN7WwT4ybjEMItMT1Hj82ok1gbZInBtw9F7YEE5ffZ1yZkHEZ0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oauth\PYZus{}token}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1408028250\PYZhy{}25kg0zMh4w6TXafaGfTZN5xX2UfpVsvvgQTZ0Eh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oauth\PYZus{}token\PYZus{}secret}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hyXIp1hMwSgIhQE4ZGGoJccuYm4WpIBCEN8YvxHKFCGpJ}\PY{l+s+s1}{\PYZsq{}}
+             \PY{p}{\PYZcb{}}
+         
+             \PY{n}{auth} \PY{o}{=} \PY{n}{tweepy}\PY{o}{.}\PY{n}{OAuthHandler}\PY{p}{(}\PY{n}{auth\PYZus{}params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{app\PYZus{}key}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                                        \PY{n}{auth\PYZus{}params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{app\PYZus{}secret}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             \PY{n}{auth}\PY{o}{.}\PY{n}{set\PYZus{}access\PYZus{}token}\PY{p}{(}\PY{n}{auth\PYZus{}params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oauth\PYZus{}token}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                                   \PY{n}{auth\PYZus{}params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oauth\PYZus{}token\PYZus{}secret}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+             \PY{n}{api} \PY{o}{=} \PY{n}{tweepy}\PY{o}{.}\PY{n}{API}\PY{p}{(}\PY{n}{auth}\PY{p}{)}
+             \PY{n}{new\PYZus{}tweets} \PY{o}{=} \PY{n}{api}\PY{o}{.}\PY{n}{user\PYZus{}timeline}\PY{p}{(}\PY{n}{screen\PYZus{}name}\PY{o}{=}\PY{n}{screen\PYZus{}name}\PY{p}{,} \PY{n}{count}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{)}
+             \PY{n}{all\PYZus{}tweets}\PY{o}{.}\PY{n}{extend}\PY{p}{(}\PY{n}{new\PYZus{}tweets}\PY{p}{)}
+             \PY{n}{oldest} \PY{o}{=} \PY{n}{all\PYZus{}tweets}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{id} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
+             \PY{k}{while} \PY{n+nb}{len}\PY{p}{(}\PY{n}{new\PYZus{}tweets}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{new\PYZus{}tweets} \PY{o}{=} \PY{n}{api}\PY{o}{.}\PY{n}{user\PYZus{}timeline}\PY{p}{(}
+                     \PY{n}{screen\PYZus{}name}\PY{o}{=}\PY{n}{screen\PYZus{}name}\PY{p}{,} \PY{n}{count}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{,} \PY{n}{max\PYZus{}id}\PY{o}{=}\PY{n}{oldest}\PY{p}{)}
+                 \PY{n}{all\PYZus{}tweets}\PY{o}{.}\PY{n}{extend}\PY{p}{(}\PY{n}{new\PYZus{}tweets}\PY{p}{)}
+                 \PY{n}{oldest} \PY{o}{=} \PY{n}{all\PYZus{}tweets}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{id} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
+         
+             \PY{k}{return} \PY{n}{all\PYZus{}tweets}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{bjp\PYZus{}tweets} \PY{o}{=} \PY{n}{get\PYZus{}all\PYZus{}tweets}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BJP4India}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BJP\PYZus{}tweets.pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{output\PYZus{}file}\PY{p}{:}
+            \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{bjp\PYZus{}tweets}\PY{p}{,} \PY{n}{output\PYZus{}file}\PY{p}{)}
+        \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BJP\PYZus{}tweets.pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{input\PYZus{}file}\PY{p}{:}
+            \PY{n}{bjp\PYZus{}tweets} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n}{input\PYZus{}file}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{a-tweets-with-most-likes}{%
+\subsubsection{1-a Tweets with most
+likes}\label{a-tweets-with-most-likes}}
+
+Tweet with id 1110886268408233984 has most number of likes
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{tweet\PYZus{}with\PYZus{}most\PYZus{}like\PYZus{}id} \PY{o}{=} \PY{n}{bjp\PYZus{}tweets}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}
+             \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{tweet}\PY{o}{.}\PY{n}{favorite\PYZus{}count} \PY{k}{for} \PY{n}{tweet} \PY{o+ow}{in} \PY{n}{bjp\PYZus{}tweets}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{id}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{tweet\PYZus{}with\PYZus{}most\PYZus{}like\PYZus{}id}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:} 1110886268408233984
+\end{Verbatim}
+            
+    \begin{figure}
+\centering
+\includegraphics{screenshot1.png}
+\caption{alt-text}
+\end{figure}
+
+    \hypertarget{q1-b-tweet-with-most-number-of-retweets.}{%
+\subsubsection{Q1-b Tweet with most number of
+retweets.}\label{q1-b-tweet-with-most-number-of-retweets.}}
+
+Tweet with id 1101524057353342981 has most number of retweets
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{tweet\PYZus{}with\PYZus{}most\PYZus{}retweets} \PY{o}{=} \PY{n}{bjp\PYZus{}tweets}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}
+             \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{tweet}\PY{o}{.}\PY{n}{retweet\PYZus{}count} \PY{k}{for} \PY{n}{tweet} \PY{o+ow}{in} \PY{n}{bjp\PYZus{}tweets}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{id}
+\end{Verbatim}
+
+
+    \begin{figure}
+\centering
+\includegraphics{screenshot2.png}
+\caption{alt-text}
+\end{figure}
+
+    \hypertarget{q1-c-top-5-most-popular-tweets}{%
+\subsubsection{Q1-c Top 5 most popular
+tweets}\label{q1-c-top-5-most-popular-tweets}}
+
+I calculated popularity of tweet as sum of favourite count and two times
+retweet count. Id of msot popular tweets are as follow: -
+1101524057353342981 - 1106767552351559680 - 1114495595421376512 -
+1110886268408233984 - 1110802295527079936
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{k}{def} \PY{n+nf}{popularity}\PY{p}{(}\PY{n}{tweet}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{tweet}\PY{o}{.}\PY{n}{favorite\PYZus{}count} \PY{o}{+} \PY{n}{tweet}\PY{o}{.}\PY{n}{retweet\PYZus{}count} \PY{o}{*} \PY{l+m+mi}{2}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{most\PYZus{}popular\PYZus{}tweets} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}
+             \PY{n}{bjp\PYZus{}tweets}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{popularity}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{n}{reverse}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{popular\PYZus{}ids} \PY{o}{=} \PY{p}{[}\PY{n}{tweet}\PY{o}{.}\PY{n}{id} \PY{k}{for} \PY{n}{tweet} \PY{o+ow}{in} \PY{n}{most\PYZus{}popular\PYZus{}tweets}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{popular\PYZus{}ids}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1101524057353342981, 1106767552351559680, 1114495595421376512, 1110886268408233984, 1110802295527079936]
+
+    \end{Verbatim}
+
+    \hypertarget{q1-d-tppo-5-msot-used-hashtags-by-bjps-official-handle}{%
+\subsubsection{Q1-d Tppo 5 msot used hashtags by BJP's official
+handle:}\label{q1-d-tppo-5-msot-used-hashtags-by-bjps-official-handle}}
+
+Top 5 most used hashtags by BJP are as follow: - BJPSankalpPatr2019 -
+MainBhiChowkidar - BJPVijaySankalpBikeRally - DeshKeLiyeModi -
+IsBaarNaMoPhirSe
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}233}]:} \PY{n}{hashtags} \PY{o}{=} \PY{n}{reduce}\PY{p}{(}\PY{k}{lambda} \PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{:} \PY{n}{a} \PY{o}{+} \PY{n}{b}\PY{p}{,}
+                            \PY{p}{[}\PY{n}{tweet}\PY{o}{.}\PY{n}{entities}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hashtags}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{k}{for} \PY{n}{tweet} \PY{o+ow}{in} \PY{n}{bjp\PYZus{}tweets}\PY{p}{]}\PY{p}{)}
+          \PY{n}{hashtags}\PY{p}{,} \PY{n}{count} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{[}\PY{n}{i}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{text}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{hashtags}\PY{p}{]}\PY{p}{,} \PY{n}{return\PYZus{}counts}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{hashtags} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{hashtags}\PY{p}{,} \PY{n}{count}\PY{p}{)}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{reverse}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{most\PYZus{}popular\PYZus{}hashtags} \PY{o}{=} \PY{p}{[}\PY{n}{hashtag}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{hashtag} \PY{o+ow}{in} \PY{n}{hashtags}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}234}]:} \PY{n}{pprint}\PY{p}{(}\PY{n}{most\PYZus{}popular\PYZus{}hashtags}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['BJPSankalpPatr2019',
+ 'MainBhiChowkidar',
+ 'BJPVijaySankalpBikeRally',
+ 'DeshKeLiyeModi',
+ 'IsBaarNaMoPhirSe']
+
+    \end{Verbatim}
+
+    \hypertarget{question-2}{%
+\subsection{Question 2}\label{question-2}}
+
+Collect 3200 most recent tweets by Indian National Congress's official
+twitter handle
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{n}{inc\PYZus{}tweets} \PY{o}{=} \PY{n}{get\PYZus{}all\PYZus{}tweets}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{INCIndia}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{INC\PYZus{}tweets.pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{output\PYZus{}file}\PY{p}{:}
+            \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{inc\PYZus{}tweets}\PY{p}{,} \PY{n}{output\PYZus{}file}\PY{p}{)}
+        \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{INC\PYZus{}tweets.pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{input\PYZus{}file}\PY{p}{:}
+            \PY{n}{inc\PYZus{}tweets} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n}{input\PYZus{}file}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{n}{tweet} \PY{o}{=} \PY{n}{inc\PYZus{}tweets}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{n}{tweet}\PY{o}{.}\PY{n}{text}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}85}]:} 'RT @RahulGandhi: No 2 Crore JOBS. \textbackslash{}nNo 15 Lakhs in Bank A/C. \textbackslash{}nNo ACCHE DIN. \textbackslash{}n\textbackslash{}nInstead:\textbackslash{}n\textbackslash{}nNo JOBS.\textbackslash{}nDEMONETISATION. \textbackslash{}nFarmers in Pain. \textbackslash{}nGABBAR S…'
+\end{Verbatim}
+            
+    \hypertarget{b-plot-word-cloud-of-1000-most-popular-tweets}{%
+\subsubsection{2-b Plot word cloud of 1000 most popular
+tweets}\label{b-plot-word-cloud-of-1000-most-popular-tweets}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} \PY{n}{most\PYZus{}popular\PYZus{}tweets} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}
+              \PY{n}{inc\PYZus{}tweets}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{popularity}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{n}{reverse}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{1000}\PY{p}{]}
+          \PY{n}{corpus} \PY{o}{=} \PY{n}{reduce}\PY{p}{(}\PY{k}{lambda} \PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{:} \PY{n}{a} \PY{o}{+} \PY{n}{b}\PY{p}{,}
+                          \PY{p}{[}\PY{n}{tweet}\PY{o}{.}\PY{n}{text} \PY{k}{for} \PY{n}{tweet} \PY{o+ow}{in} \PY{n}{most\PYZus{}popular\PYZus{}tweets}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}
+          \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{p}{[}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{?}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{!}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{;}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZam{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{@}\PY{l+s+s1}{\PYZsq{}}
+          \PY{p}{]}\PY{p}{:}
+              \PY{n}{corpus} \PY{o}{=} \PY{n}{corpus}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{n}{c}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{corpus} \PY{o}{=} \PY{n}{corpus}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}106}]:} \PY{n}{stopwords} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{n}{STOPWORDS}\PY{p}{)}
+          \PY{n}{corpus} \PY{o}{=} \PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{corpus} \PY{k}{if} \PY{n}{i} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{stopwords}\PY{p}{]}
+          \PY{n}{wordcloud} \PY{o}{=} \PY{n}{WordCloud}\PY{p}{(}\PY{n}{background\PYZus{}color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{stopwords}\PY{o}{=}\PY{n}{stopwords}\PY{p}{)}
+          \PY{n}{wordcloud\PYZus{}dict} \PY{o}{=} \PY{n}{Counter}\PY{p}{(}\PY{n}{corpus}\PY{p}{)}
+          \PY{n}{wordcloud}\PY{o}{.}\PY{n}{generate\PYZus{}from\PYZus{}frequencies}\PY{p}{(}\PY{n}{wordcloud\PYZus{}dict}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{wordcloud}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{off}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Untitled_files/Untitled_26_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{c-list-top-5-most-used-hashtags-by-incs-official-handle}{%
+\subsubsection{2-c List top 5 most used hashtags by INC's official
+handle}\label{c-list-top-5-most-used-hashtags-by-incs-official-handle}}
+
+\begin{itemize}
+\tightlist
+\item
+  RafaleSca
+\item
+  JanKiBaat
+\item
+  OneNationBillionIdeas
+\item
+  ChowkidarChorHai
+\item
+  LoveNotHate
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{n}{hashtags} \PY{o}{=} \PY{n}{reduce}\PY{p}{(}\PY{k}{lambda} \PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{:} \PY{n}{a} \PY{o}{+} \PY{n}{b}\PY{p}{,}
+                           \PY{p}{[}\PY{n}{tweet}\PY{o}{.}\PY{n}{entities}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hashtags}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{k}{for} \PY{n}{tweet} \PY{o+ow}{in} \PY{n}{inc\PYZus{}tweets}\PY{p}{]}\PY{p}{)}
+         \PY{n}{hashtags}\PY{p}{,} \PY{n}{count} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{[}\PY{n}{i}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{text}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{hashtags}\PY{p}{]}\PY{p}{,} \PY{n}{return\PYZus{}counts}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{hashtags} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{hashtags}\PY{p}{,} \PY{n}{count}\PY{p}{)}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{reverse}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{most\PYZus{}popular\PYZus{}hashtags} \PY{o}{=} \PY{p}{[}\PY{n}{hashtag}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{hashtag} \PY{o+ow}{in} \PY{n}{hashtags}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{]}
+         \PY{n}{pprint}\PY{p}{(}\PY{n}{most\PYZus{}popular\PYZus{}hashtags}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['RafaleScam',
+ 'JanKiBaat',
+ 'OneNationBillionIdeas',
+ 'ChowkidarChorHai',
+ 'LoveNotHate']
+
+    \end{Verbatim}
+
+    \hypertarget{part-2}{%
+\section{Part 2}\label{part-2}}
+
+Scraping Instagram. I've used Instaloader.
+
+    \hypertarget{question-1}{%
+\subsection{Question 1:}\label{question-1}}
+
+Collect 500 most recent post by Indian National Congress's official
+Instagram Handle.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}202}]:} \PY{k+kn}{from} \PY{n+nn}{instaloader} \PY{k}{import} \PY{o}{*}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}203}]:} \PY{n}{L} \PY{o}{=} \PY{n}{Instaloader}\PY{p}{(}\PY{p}{)}
+          \PY{n}{profile} \PY{o}{=} \PY{n}{Profile}\PY{o}{.}\PY{n}{from\PYZus{}username}\PY{p}{(}\PY{n}{L}\PY{o}{.}\PY{n}{context}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{incindia}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}209}]:} \PY{n}{posts} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{post} \PY{o+ow}{in} \PY{n}{profile}\PY{o}{.}\PY{n}{get\PYZus{}posts}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{n}{posts}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{post}\PY{p}{)}
+              \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{posts}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{500}\PY{p}{:}
+                  \PY{k}{break}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{INC\PYZus{}post.pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{output\PYZus{}file}\PY{p}{:}
+            \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{posts}\PY{p}{,} \PY{n}{output\PYZus{}file}\PY{p}{)}
+        \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{INC\PYZus{}post.pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{input\PYZus{}file}\PY{p}{:}
+            \PY{n}{posts} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n}{input\PYZus{}file}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{q1-a-most-liked-post}{%
+\subsubsection{Q1-a Most liked post}\label{q1-a-most-liked-post}}
+
+Most liked post has shortcode Bs-IxK3FTIx
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}220}]:} \PY{n}{most\PYZus{}liked\PYZus{}post} \PY{o}{=} \PY{n}{posts}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{p}{[}\PY{n}{post}\PY{o}{.}\PY{n}{likes} \PY{k}{for} \PY{n}{post} \PY{o+ow}{in} \PY{n}{posts}\PY{p}{]}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{shortcode}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{most\PYZus{}liked\PYZus{}post}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{figure}
+\centering
+\includegraphics{screenshot3.png}
+\caption{alt-text}
+\end{figure}
+
+    \hypertarget{question-1-b-most-commented-post}{%
+\subsubsection{Question 1-b most commented
+post}\label{question-1-b-most-commented-post}}
+
+Most commented post has short code BtoT5MoFAL3
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}229}]:} \PY{n}{most\PYZus{}commented\PYZus{}post} \PY{o}{=} \PY{n}{posts}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{p}{[}\PY{n}{post}\PY{o}{.}\PY{n}{comments} \PY{k}{for} \PY{n}{post} \PY{o+ow}{in} \PY{n}{posts}\PY{p}{[}\PY{p}{:}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{shortcode}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{most\PYZus{}commented\PYZus{}post}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+BtoT5MoFAL3
+
+    \end{Verbatim}
+
+    \begin{figure}
+\centering
+\includegraphics{screenshot4.png}
+\caption{alt-text}
+\end{figure}
+
+    \hypertarget{q1-c-5-most-popular-post}{%
+\subsubsection{Q1-c 5 Most popular
+post}\label{q1-c-5-most-popular-post}}
+
+Popularity of post is defined as sum of number of likes and twice the
+number of comments. Following are most popular posts: - Bs-IxK3FTIx -
+BrmutwOF63Y - BrQDi4VFI2- - Bvgd6WZlmsz - Bt6QHouleGN
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k}{def} \PY{n+nf}{popularity\PYZus{}of\PYZus{}post}\PY{p}{(}\PY{n}{post}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n}{post}\PY{o}{.}\PY{n}{likes} \PY{o}{+} \PY{n}{post}\PY{o}{.}\PY{n}{comments} \PY{o}{*} \PY{l+m+mi}{2}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}231}]:} \PY{n}{most\PYZus{}popular\PYZus{}post} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}
+              \PY{n}{posts}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{popularity\PYZus{}of\PYZus{}post}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{n}{reverse}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}236}]:} \PY{n}{popular\PYZus{}post\PYZus{}shortcode} \PY{o}{=} \PY{p}{[}\PY{n}{post}\PY{o}{.}\PY{n}{shortcode} \PY{k}{for} \PY{n}{post} \PY{o+ow}{in} \PY{n}{most\PYZus{}popular\PYZus{}post}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{popular\PYZus{}post\PYZus{}shortcode}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['Bs-IxK3FTIx', 'BrmutwOF63Y', 'BrQDi4VFI2-', 'Bvgd6WZlmsz', 'Bt6QHouleGN']
+
+    \end{Verbatim}
+
+    \hypertarget{question-2}{%
+\subsection{Question 2:}\label{question-2}}
+
+Collect 1,000 most recent posts from the BJP's official Instagram
+handle.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}237}]:} \PY{n}{profile} \PY{o}{=} \PY{n}{Profile}\PY{o}{.}\PY{n}{from\PYZus{}username}\PY{p}{(}\PY{n}{L}\PY{o}{.}\PY{n}{context}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BJP4India}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{posts} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{post} \PY{o+ow}{in} \PY{n}{profile}\PY{o}{.}\PY{n}{get\PYZus{}posts}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{n}{posts}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{post}\PY{p}{)}
+              \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{posts}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{1000}\PY{p}{:}
+                  \PY{k}{break}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BJP\PYZus{}post.pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{output\PYZus{}file}\PY{p}{:}
+            \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{posts}\PY{p}{,} \PY{n}{output\PYZus{}file}\PY{p}{)}
+        \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BJP\PYZus{}post.pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{input\PYZus{}file}\PY{p}{:}
+            \PY{n}{posts} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n}{input\PYZus{}file}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{q2-a-pie-chart-of-share-of-images-and-videos-in-posts}{%
+\subsubsection{Q2-a Pie chart of share of images and videos in
+posts}\label{q2-a-pie-chart-of-share-of-images-and-videos-in-posts}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}242}]:} \PY{n}{value}\PY{p}{,} \PY{n}{counts} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{[}\PY{n}{post}\PY{o}{.}\PY{n}{is\PYZus{}video} \PY{k}{for} \PY{n}{post} \PY{o+ow}{in} \PY{n}{posts}\PY{p}{]} \PY{p}{,} \PY{n}{return\PYZus{}counts}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{value}  \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Images}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Videos}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{fig1}\PY{p}{,} \PY{n}{ax1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{pie}\PY{p}{(}
+              \PY{n}{counts}\PY{p}{,}
+              \PY{n}{labels}\PY{o}{=}\PY{n}{value}\PY{p}{,}
+              \PY{n}{autopct}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}1.1f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+              \PY{n}{shadow}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+              \PY{n}{startangle}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{equal}\PY{l+s+s1}{\PYZsq{}}
+                   \PY{p}{)}  \PY{c+c1}{\PYZsh{} Equal aspect ratio ensures that pie is drawn as a circle.}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{best}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{style}\PY{o}{.}\PY{n}{use}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fivethirtyeight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Untitled_files/Untitled_50_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{q2-b-word-cloud-of-200-most-popular-posts}{%
+\subsubsection{Q2-b Word cloud of 200 most popular
+posts}\label{q2-b-word-cloud-of-200-most-popular-posts}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}256}]:} \PY{c+c1}{\PYZsh{} most\PYZus{}popular\PYZus{}posts = sorted(}
+          \PY{c+c1}{\PYZsh{}     posts, key=lambda x: popularity\PYZus{}of\PYZus{}post(x), reverse=True)[:200]}
+          \PY{n}{corpus} \PY{o}{=} \PY{n}{reduce}\PY{p}{(}\PY{k}{lambda} \PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{:} \PY{n}{a} \PY{o}{+} \PY{n}{b}\PY{p}{,}
+                          \PY{p}{[}\PY{n}{post}\PY{o}{.}\PY{n}{caption} \PY{k}{for} \PY{n}{post} \PY{o+ow}{in} \PY{n}{most\PYZus{}popular\PYZus{}posts}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}
+          \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{p}{[}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{?}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{!}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{;}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZam{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{@}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}}\PY{l+s+s1}{\PYZsq{}}
+          \PY{p}{]}\PY{p}{:}
+              \PY{n}{corpus} \PY{o}{=} \PY{n}{corpus}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{n}{c}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} corpus = corpus.decode(\PYZdq{}utf\PYZhy{}8\PYZdq{})}
+          \PY{n}{corpus} \PY{o}{=} \PY{n}{corpus}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}
+          \PY{n}{stopwords} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{n}{STOPWORDS}\PY{p}{)}
+          \PY{n}{corpus} \PY{o}{=} \PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{corpus} \PY{k}{if} \PY{n}{i} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{stopwords}\PY{p}{]}
+          \PY{n}{wordcloud} \PY{o}{=} \PY{n}{WordCloud}\PY{p}{(}\PY{n}{background\PYZus{}color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+m+mi}{600}\PY{p}{,} \PY{n}{height}\PY{o}{=}\PY{l+m+mi}{600}\PY{p}{,} \PY{n}{stopwords}\PY{o}{=}\PY{n}{stopwords}\PY{p}{)}
+          \PY{n}{wordcloud\PYZus{}dict} \PY{o}{=} \PY{n}{Counter}\PY{p}{(}\PY{n}{corpus}\PY{p}{)}
+          \PY{n}{wordcloud}\PY{o}{.}\PY{n}{generate\PYZus{}from\PYZus{}frequencies}\PY{p}{(}\PY{n}{wordcloud\PYZus{}dict}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{wordcloud}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{off}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Untitled_files/Untitled_52_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{q2-c-most-used-hashtags-by-bjps-handle}{%
+\subsubsection{Q2-c Most used hashtags by BJP's
+handle}\label{q2-c-most-used-hashtags-by-bjps-handle}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}258}]:} \PY{n}{hashtags} \PY{o}{=} \PY{n}{reduce}\PY{p}{(}\PY{k}{lambda} \PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{:} \PY{n}{a} \PY{o}{+} \PY{n}{b}\PY{p}{,}
+                            \PY{p}{[}\PY{n}{post}\PY{o}{.}\PY{n}{caption\PYZus{}hashtags} \PY{k}{for} \PY{n}{post} \PY{o+ow}{in} \PY{n}{posts}\PY{p}{]}\PY{p}{)}
+          \PY{n}{hashtags}\PY{p}{,} \PY{n}{count} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{hashtags}\PY{p}{]}\PY{p}{,} \PY{n}{return\PYZus{}counts}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{hashtags} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{hashtags}\PY{p}{,} \PY{n}{count}\PY{p}{)}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{reverse}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{most\PYZus{}popular\PYZus{}hashtags} \PY{o}{=} \PY{p}{[}\PY{n}{hashtag}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{hashtag} \PY{o+ow}{in} \PY{n}{hashtags}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{]}
+          \PY{n}{pprint}\PY{p}{(}\PY{n}{most\PYZus{}popular\PYZus{}hashtags}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['bjp', 'india', 'election', 'vote', 'bharatkemannkibaat']
+
+    \end{Verbatim}
+
+    \hypertarget{q3-collect-3000-posts-from-instagrams-explore-feed.}{%
+\subsection{Q3 Collect 3,000 posts from Instagram's `explore'
+feed.}\label{q3-collect-3000-posts-from-instagrams-explore-feed.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}260}]:} \PY{n}{L}\PY{o}{.}\PY{n}{login}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{amanjoshi668@gmail.com}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amanricha668@}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{posts} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{post} \PY{o+ow}{in} \PY{n}{L}\PY{o}{.}\PY{n}{get\PYZus{}explore\PYZus{}posts}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{n}{posts}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{post}\PY{p}{)}
+              \PY{k}{if}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{posts}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{3000}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{break}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+Too many queries in the last time. Need to wait 606 seconds, until 18:34.
+
+Too many queries in the last time. Need to wait 591 seconds, until 18:45.
+
+Too many queries in the last time. Need to wait 586 seconds, until 18:56.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}262}]:} \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Instagram\PYZus{}explore\PYZus{}300.pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{output\PYZus{}file}\PY{p}{:}
+              \PY{n}{pickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{posts}\PY{p}{,} \PY{n}{output\PYZus{}file}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Instagram\PYZus{}explore\PYZus{}300.pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{input\PYZus{}file}\PY{p}{:}
+            \PY{n}{posts} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n}{input\PYZus{}file}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{def} \PY{n+nf}{convert\PYZus{}to\PYZus{}dict}\PY{p}{(}\PY{n}{post}\PY{p}{)}\PY{p}{:}
+            \PY{k}{try}\PY{p}{:}
+                \PY{n}{x} \PY{o}{=} \PY{p}{\PYZob{}}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{caption}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{post}\PY{o}{.}\PY{n}{caption}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hashtag}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{post}\PY{o}{.}\PY{n}{caption\PYZus{}hashtags}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{likes}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{post}\PY{o}{.}\PY{n}{likes}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{comments}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{post}\PY{o}{.}\PY{n}{comments}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{shortcode}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{post}\PY{o}{.}\PY{n}{shortcode}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{video}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{post}\PY{o}{.}\PY{n}{is\PYZus{}video}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{type}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{post}\PY{o}{.}\PY{n}{typename}
+                \PY{p}{\PYZcb{}}
+                \PY{k}{return} \PY{n}{x}
+            \PY{k}{except}\PY{p}{:}
+                \PY{k}{return} \PY{k+kc}{None}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{explore\PYZus{}data} \PY{o}{=} \PY{p}{[}\PY{n}{convert\PYZus{}to\PYZus{}dict}\PY{p}{(}\PY{n}{post}\PY{p}{)} \PY{k}{for} \PY{n}{post} \PY{o+ow}{in} \PY{n}{posts}\PY{p}{]}
+        \PY{n}{explore\PYZus{}data} \PY{o}{=} \PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{explore\PYZus{}data} \PY{k}{if} \PY{n}{i} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{]}
+        \PY{n}{explore\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{o}{.}\PY{n}{from\PYZus{}records}\PY{p}{(}\PY{n}{explore\PYZus{}data}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{explore\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n}{likes} \PY{o}{+} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{comments} \PY{k}{for} \PY{p}{(}\PY{n}{likes}\PY{p}{,} \PY{n}{comments}\PY{p}{)} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{explore\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{likes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{explore\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{comments}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+        \PY{n}{explore\PYZus{}df} \PY{o}{=} \PY{n}{explore\PYZus{}df}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{display}\PY{p}{(}\PY{n}{explore\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{q3-b-plot-pie-chart-comparing-number-of-posts-with-single-video-image-in-them-with-number-of-posts-with-multiple-video-and-images}{%
+\subsubsection{Q3-b Plot pie chart comparing number of posts with single
+video/ image in them with number of posts with multiple video and
+images}\label{q3-b-plot-pie-chart-comparing-number-of-posts-with-single-video-image-in-them-with-number-of-posts-with-multiple-video-and-images}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{explore\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{multiple}\PY{l+s+s1}{\PYZsq{}} \PY{k}{if} \PY{n}{x}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}} \PY{k}{else} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{single}\PY{l+s+s1}{\PYZsq{}} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{explore\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{value}\PY{p}{,} \PY{n}{counts} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{explore\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{p}{,} \PY{n}{return\PYZus{}counts}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{value}  \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Single video/Image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Multiple Videos/Images}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{fig1}\PY{p}{,} \PY{n}{ax1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{pie}\PY{p}{(}
+            \PY{n}{counts}\PY{p}{,}
+            \PY{n}{labels}\PY{o}{=}\PY{n}{value}\PY{p}{,}
+            \PY{n}{autopct}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}1.1f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{n}{shadow}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+            \PY{n}{startangle}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+        \PY{n}{ax1}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{equal}\PY{l+s+s1}{\PYZsq{}}
+                 \PY{p}{)}  \PY{c+c1}{\PYZsh{} Equal aspect ratio ensures that pie is drawn as a circle.}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{best}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{style}\PY{o}{.}\PY{n}{use}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fivethirtyeight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

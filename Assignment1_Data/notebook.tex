@@ -1,0 +1,942 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Untitled}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{assignment-1-camera-calibration}{%
+\section{Assignment 1: Camera
+Calibration}\label{assignment-1-camera-calibration}}
+
+\begin{itemize}
+\tightlist
+\item
+  Aman Joshi
+\item
+  2018201097
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{core}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{display}\PY{p}{,} \PY{n}{HTML}
+        \PY{n}{display}\PY{p}{(}\PY{n}{HTML}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZlt{}style\PYZgt{}.container }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{ width:100}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{ !important; \PYZcb{}\PYZlt{}/style\PYZgt{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+        \PY{k+kn}{from} \PY{n+nn}{sympy} \PY{k}{import} \PY{n}{Matrix}
+        \PY{k+kn}{import} \PY{n+nn}{random}
+        \PY{k+kn}{import} \PY{n+nn}{cv2} \PY{k}{as} \PY{n+nn}{cv}
+        \PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{n}{sqrt}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1.15.4
+
+    \end{Verbatim}
+
+    \hypertarget{camera-class}{%
+\section{Camera class}\label{camera-class}}
+
+The class represent a camera that has some parameters like \textbf{K, R,
+P, t}. It also contain functions like : - get\_camera\_parameters: It
+will calculate camera parameters using DLT. - get\_image\_coordinates:
+It will map a 3-D real world point to 2-D image point. - RANSAC: It will
+calculate camera parameters using DLT. \#\# DLT It is a Camera
+Calibration technique that require mapping of 3D real world coordinates
+to 2D image coordinates. The real world coordinates can be represented
+as\begin{equation*}
+X = [x\ y\ z\ w]
+\end{equation*} while the image coordinates can be represented as
+\begin{equation*}
+\bar{x} = [u\ v\ w]
+\end{equation*} the transformation from 3D points to 2D points can be
+done through a \textbf{3 X 3} matrix \textbf{P} . Thus combining above
+\begin{equation}\label{eq:}
+X = P\bar{x}
+\end{equation}
+
+Where P is the camera matrix and can be represented as\begin{equation*}
+P = K[R|t] = KR|Kt
+\end{equation*} Where \textbf{K} is the intrinsic parameters of camera
+while \textbf{R} , \textbf{t} are rotational and transational matrices
+and vectors.
+
+However this can be further solved using\begin{equation*}
+KR*(KR)^T = KK^T
+\end{equation*} It can be solved to find K which then can be used to
+find R and t. \#\# RANSAC Random sample consensus (RANSAC) is an
+iterative method to estimate parameters of a mathematical model from a
+set of observed data that contains outliers, when outliers are to be
+accorded no influence on the values of the estimates. Therefore, it also
+can be interpreted as an outlier detection method. I ve set number of
+iterations to be 100 and threshold to 200. Where 200 is the allowed
+euclidean distance.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{class} \PY{n+nc}{Camera}\PY{p}{:}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{P} \PY{o}{=} \PY{k+kc}{None}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{K} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{R} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{C} \PY{o}{=} \PY{k+kc}{None}
+        
+            \PY{k}{def} \PY{n+nf}{change\PYZus{}K}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{K}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{K} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{K}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{KR} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{K}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{R}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{Kt} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{K}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{t}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{}         display(self.K, self.R, self.t, self.KR, self.Kt)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{P} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{KR}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{Kt}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        
+            \PY{k}{def} \PY{n+nf}{get\PYZus{}camera\PYZus{}parameters}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}
+                                      \PY{n}{real\PYZus{}world\PYZus{}coordinates}\PY{p}{,}
+                                      \PY{n}{image\PYZus{}coordinates}\PY{p}{,}
+                                      \PY{n}{change}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+                \PY{n}{size} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{real\PYZus{}world\PYZus{}coordinates}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{2}
+                \PY{n}{A} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{p}{(}\PY{n}{size}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{)}\PY{p}{)}
+                \PY{n}{count} \PY{o}{=} \PY{l+m+mi}{0}
+                \PY{k}{for} \PY{n}{real\PYZus{}point}\PY{p}{,} \PY{n}{image\PYZus{}point} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{real\PYZus{}world\PYZus{}coordinates}\PY{p}{,}
+                                                   \PY{n}{image\PYZus{}coordinates}\PY{p}{)}\PY{p}{:}
+                    \PY{c+c1}{\PYZsh{}             print(real\PYZus{}point, image\PYZus{}point)}
+                    \PY{n}{A}\PY{p}{[}\PY{n}{count}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}
+                        \PY{o}{\PYZhy{}}\PY{n}{real\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{real\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{real\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,}
+                        \PY{n}{real\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{n}{image\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{real\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{*} \PY{n}{image\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+                        \PY{n}{real\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{*} \PY{n}{image\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{image\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                    \PY{p}{]}\PY{p}{)}
+                    \PY{n}{A}\PY{p}{[}\PY{n}{count} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}
+                        \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{real\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{real\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{n}{real\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}
+                        \PY{n}{real\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{n}{image\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{real\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{*} \PY{n}{image\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                        \PY{n}{real\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{*} \PY{n}{image\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{image\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                    \PY{p}{]}\PY{p}{)}
+                    \PY{n}{count} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{2}
+        
+        
+        \PY{c+c1}{\PYZsh{}         print(A)}
+        \PY{c+c1}{\PYZsh{}         return A}
+                \PY{n}{S}\PY{p}{,} \PY{n}{V}\PY{p}{,} \PY{n}{d} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{svd}\PY{p}{(}\PY{n}{A}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{}         print(d)}
+                \PY{n}{P} \PY{o}{=} \PY{n}{d}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{p}{:}\PY{p}{]} \PY{o}{/} \PY{n}{d}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+                \PY{n}{P} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{P}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+                \PY{k}{if} \PY{n}{change}\PY{p}{:}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{P} \PY{o}{=} \PY{n}{P}
+                \PY{k}{return} \PY{n}{P}
+        
+            \PY{k}{def} \PY{n+nf}{get\PYZus{}KRC}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{change}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+                \PY{n}{KR} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{P}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{ix\PYZus{}}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+                \PY{c+c1}{\PYZsh{}         print(\PYZdq{}KR = \PYZdq{}, KR)}
+                \PY{n}{KRC} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{P}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{ix\PYZus{}}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+                \PY{n}{temp} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{KR}\PY{p}{,} \PY{n}{KR}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+                \PY{n}{temp} \PY{o}{=} \PY{n}{temp} \PY{o}{/} \PY{n}{temp}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+                \PY{c+c1}{\PYZsh{}         print(\PYZdq{}TEMP = \PYZdq{}, temp)}
+                \PY{n}{u0} \PY{o}{=} \PY{n}{temp}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                \PY{n}{v0} \PY{o}{=} \PY{n}{temp}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                \PY{n}{beta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{temp}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{v0} \PY{o}{*} \PY{n}{v0}\PY{p}{)}
+                \PY{n}{gamma} \PY{o}{=} \PY{p}{(}\PY{n}{temp}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{u0} \PY{o}{*} \PY{n}{v0}\PY{p}{)} \PY{o}{/} \PY{n}{beta}
+                \PY{n}{alpha} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{temp}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{gamma}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{n}{u0}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{K} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{n}{alpha}\PY{p}{,} \PY{n}{gamma}\PY{p}{,} \PY{n}{u0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{beta}\PY{p}{,} \PY{n}{v0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+                \PY{n}{inverse} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{K}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{R} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{inverse}\PY{p}{,} \PY{n}{KR}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{inverse}\PY{p}{,} \PY{n}{KRC}\PY{p}{)}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{K}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{R}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{t}
+        
+            \PY{k}{def} \PY{n+nf}{get\PYZus{}image\PYZus{}coordinates}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{real\PYZus{}world\PYZus{}coordinates}\PY{p}{)}\PY{p}{:}
+                \PY{n}{image\PYZus{}coordinates} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                \PY{c+c1}{\PYZsh{}         print(real\PYZus{}world\PYZus{}coordinates)}
+                \PY{k}{for} \PY{n}{world\PYZus{}point} \PY{o+ow}{in} \PY{n}{real\PYZus{}world\PYZus{}coordinates}\PY{p}{:}
+                    \PY{n}{world\PYZus{}point} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{world\PYZus{}point}\PY{p}{)}
+                    \PY{c+c1}{\PYZsh{}             print(world\PYZus{}point)}
+                    \PY{c+c1}{\PYZsh{}             world\PYZus{}point.append(1)}
+                    \PY{c+c1}{\PYZsh{}             print(world\PYZus{}point)}
+                    \PY{n}{world\PYZus{}point} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{world\PYZus{}point}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+                    \PY{c+c1}{\PYZsh{}             print(world\PYZus{}point\PYZus{})?}
+                    \PY{n}{res} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{P}\PY{p}{,} \PY{n}{world\PYZus{}point}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+                    \PY{n}{image\PYZus{}coordinates}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{res}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{/} \PY{n}{res}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+                \PY{k}{return} \PY{n}{image\PYZus{}coordinates}
+        
+            \PY{k}{def} \PY{n+nf}{error}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{n}{x} \PY{o}{\PYZhy{}} \PY{n}{y}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{k}{for} \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        
+            \PY{k}{def} \PY{n+nf}{RANSAC}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}
+                       \PY{n}{real\PYZus{}world\PYZus{}coordinates}\PY{p}{,}
+                       \PY{n}{image\PYZus{}coordinates}\PY{p}{,}
+                       \PY{n}{iterations}\PY{p}{,}
+                       \PY{n}{threshold}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{,}
+                       \PY{n}{d}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{iter} \PY{o}{=} \PY{l+m+mi}{0}
+                \PY{n}{best\PYZus{}fit} \PY{o}{=} \PY{k+kc}{None}
+                \PY{n}{best\PYZus{}error} \PY{o}{=} \PY{l+m+mf}{1e+30}
+                \PY{k}{while} \PY{n+nb}{iter} \PY{o}{\PYZlt{}} \PY{n}{iterations}\PY{p}{:}
+                    \PY{n}{index} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{image\PYZus{}coordinates}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{,}
+                                          \PY{l+m+mi}{6}\PY{p}{)}
+                    \PY{n}{model\PYZus{}real\PYZus{}world\PYZus{}coordinates} \PY{o}{=} \PY{p}{[}
+                        \PY{n}{real\PYZus{}world\PYZus{}coordinates}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{index}
+                    \PY{p}{]}
+                    \PY{n}{model\PYZus{}image\PYZus{}coordinates} \PY{o}{=} \PY{p}{[}\PY{n}{image\PYZus{}coordinates}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{index}\PY{p}{]}
+                    \PY{n}{P} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{get\PYZus{}camera\PYZus{}parameters}\PY{p}{(}\PY{n}{model\PYZus{}real\PYZus{}world\PYZus{}coordinates}\PY{p}{,}
+                                                   \PY{n}{model\PYZus{}image\PYZus{}coordinates}\PY{p}{)}
+                    \PY{n}{no\PYZus{}of\PYZus{}inliners} \PY{o}{=} \PY{l+m+mi}{0}
+                    \PY{n}{error} \PY{o}{=} \PY{l+m+mf}{0.0}
+                    \PY{n}{check\PYZus{}real\PYZus{}world\PYZus{}coordinates} \PY{o}{=} \PY{p}{[}
+                        \PY{n}{real\PYZus{}world\PYZus{}coordinates}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{real\PYZus{}world\PYZus{}coordinates}\PY{p}{)}\PY{p}{)} \PY{k}{if} \PY{n}{i} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{index}
+                    \PY{p}{]}
+                    \PY{n}{check\PYZus{}image\PYZus{}coordinates} \PY{o}{=} \PY{p}{[}
+                        \PY{n}{image\PYZus{}coordinates}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{image\PYZus{}coordinates}\PY{p}{)}\PY{p}{)}
+                        \PY{k}{if} \PY{n}{i} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{index}
+                    \PY{p}{]}
+                    \PY{n}{predicted\PYZus{}image\PYZus{}coordinates} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{get\PYZus{}image\PYZus{}coordinates}\PY{p}{(}
+                        \PY{n}{check\PYZus{}real\PYZus{}world\PYZus{}coordinates}\PY{p}{)}
+                    \PY{n}{points\PYZus{}with\PYZus{}allowed\PYZus{}error} \PY{o}{=} \PY{p}{[}
+                        \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{error}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)} \PY{k}{for} \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{check\PYZus{}image\PYZus{}coordinates}\PY{p}{,}
+                                                         \PY{n}{predicted\PYZus{}image\PYZus{}coordinates}\PY{p}{)}
+                    \PY{p}{]}
+                    \PY{c+c1}{\PYZsh{}             print(\PYZdq{}fhdskfhadgfdafadslf\PYZdq{}, points\PYZus{}with\PYZus{}allowed\PYZus{}error)}
+                    \PY{n}{index} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                    \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{points\PYZus{}with\PYZus{}allowed\PYZus{}error}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                        \PY{k}{if} \PY{n}{points\PYZus{}with\PYZus{}allowed\PYZus{}error}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{n}{threshold}\PY{p}{:}
+                            \PY{n}{index}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+                    \PY{n}{points\PYZus{}with\PYZus{}allowed\PYZus{}error} \PY{o}{=} \PY{p}{[}
+                        \PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{points\PYZus{}with\PYZus{}allowed\PYZus{}error} \PY{k}{if} \PY{n}{i} \PY{o}{\PYZlt{}} \PY{n}{threshold}
+                    \PY{p}{]}
+                    \PY{c+c1}{\PYZsh{}             print(}
+                    \PY{c+c1}{\PYZsh{}                 \PYZdq{}Hey there delilah whats it like in new york city I am thousand\PYZdq{},}
+                    \PY{c+c1}{\PYZsh{}                 points\PYZus{}with\PYZus{}allowed\PYZus{}error)}
+                    \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{points\PYZus{}with\PYZus{}allowed\PYZus{}error}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{n}{d}\PY{p}{:}
+                        \PY{n}{model\PYZus{}real\PYZus{}world\PYZus{}coordinates} \PY{o}{=} \PY{p}{[}
+                            \PY{n}{real\PYZus{}world\PYZus{}coordinates}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{index}
+                        \PY{p}{]}
+                        \PY{n}{model\PYZus{}image\PYZus{}coordinates} \PY{o}{=} \PY{p}{[}\PY{n}{image\PYZus{}coordinates}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{index}\PY{p}{]}
+                        \PY{n}{P} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{get\PYZus{}camera\PYZus{}parameters}\PY{p}{(}\PY{n}{model\PYZus{}real\PYZus{}world\PYZus{}coordinates}\PY{p}{,}
+                                                       \PY{n}{model\PYZus{}image\PYZus{}coordinates}\PY{p}{)}
+                        \PY{n}{points\PYZus{}with\PYZus{}allowed\PYZus{}error} \PY{o}{=} \PY{p}{[}
+                            \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{error}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)} \PY{k}{for} \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}
+                                \PY{n}{check\PYZus{}image\PYZus{}coordinates}\PY{p}{,} \PY{n}{predicted\PYZus{}image\PYZus{}coordinates}\PY{p}{)}
+                        \PY{p}{]}
+                        \PY{n}{cur\PYZus{}error} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{points\PYZus{}with\PYZus{}allowed\PYZus{}error}\PY{p}{)}
+                        \PY{k}{if} \PY{n}{cur\PYZus{}error} \PY{o}{\PYZlt{}} \PY{n}{best\PYZus{}error}\PY{p}{:}
+                            \PY{n}{best\PYZus{}fit} \PY{o}{=} \PY{n}{P}
+                            \PY{n}{best\PYZus{}error} \PY{o}{=} \PY{n}{cur\PYZus{}error}
+                    \PY{n+nb}{iter} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{P} \PY{o}{=} \PY{n}{best\PYZus{}fit}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{get\PYZus{}KRC}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{question-1-dlt}{%
+\section{Question 1 (DLT)}\label{question-1-dlt}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{real\PYZus{}world\PYZus{}coordinates} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{12.3}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+                                  \PY{p}{[}\PY{l+m+mf}{14.5}\PY{p}{,} \PY{l+m+mf}{12.3}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{14.5}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{14.5}\PY{p}{]}\PY{p}{,}
+                                  \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{12.3}\PY{p}{,}
+                                   \PY{l+m+mf}{14.5}\PY{p}{]}\PY{p}{]}  \PY{c+c1}{\PYZsh{}, [14.5,12.3,14.5]]\PYZsh{}, [14.5,0,14.5]]}
+        \PY{n}{image\PYZus{}coordinates} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1302}\PY{p}{,} \PY{l+m+mi}{1147}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1110}\PY{p}{,} \PY{l+m+mi}{976}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1411}\PY{p}{,} \PY{l+m+mi}{863}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1618}\PY{p}{,} \PY{l+m+mi}{1012}\PY{p}{]}\PY{p}{,}
+                             \PY{p}{[}\PY{l+m+mi}{1324}\PY{p}{,} \PY{l+m+mi}{812}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1127}\PY{p}{,} \PY{l+m+mi}{658}\PY{p}{]}\PY{p}{]}  \PY{c+c1}{\PYZsh{},[1433,564]]\PYZsh{},[1645,704]]}
+        \PY{n}{image} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mf}{120.855}\PY{p}{,} \PY{l+m+mf}{285.603}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{904.145}\PY{p}{,} \PY{l+m+mf}{329.632}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{3242.98}\PY{p}{,} \PY{l+m+mf}{462.119}\PY{p}{]}\PY{p}{,}
+                 \PY{p}{[}\PY{l+m+mf}{4070.4}\PY{p}{,} \PY{l+m+mf}{506.248}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{4919.89}\PY{p}{,} \PY{l+m+mf}{561.41}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{198.081}\PY{p}{,} \PY{l+m+mf}{1046.83}\PY{p}{]}\PY{p}{,}
+                 \PY{p}{[}\PY{l+m+mf}{926.21}\PY{p}{,} \PY{l+m+mf}{1101.99}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{1676.4}\PY{p}{,} \PY{l+m+mf}{1157.15}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{2448.66}\PY{p}{,} \PY{l+m+mf}{1212.31}\PY{p}{]}\PY{p}{,}
+                 \PY{p}{[}\PY{l+m+mf}{3220.92}\PY{p}{,} \PY{l+m+mf}{1267.47}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{4026.27}\PY{p}{,} \PY{l+m+mf}{1333.67}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{4875.76}\PY{p}{,} \PY{l+m+mf}{1388.83}\PY{p}{]}\PY{p}{,}
+                 \PY{p}{[}\PY{l+m+mf}{661.435}\PY{p}{,} \PY{l+m+mf}{2105.93}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{1433.69}\PY{p}{,} \PY{l+m+mf}{2172.12}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{2216.98}\PY{p}{,} \PY{l+m+mf}{2238.31}\PY{p}{]}\PY{p}{,}
+                 \PY{p}{[}\PY{l+m+mf}{3033.37}\PY{p}{,} \PY{l+m+mf}{2315.54}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{3860.79}\PY{p}{,} \PY{l+m+mf}{2381.73}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{4721.31}\PY{p}{,} \PY{l+m+mf}{2458.96}\PY{p}{]}\PY{p}{,}
+                 \PY{p}{[}\PY{l+m+mf}{330.468}\PY{p}{,} \PY{l+m+mf}{2403.8}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{1146.85}\PY{p}{,} \PY{l+m+mf}{2469.99}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{3717.37}\PY{p}{,} \PY{l+m+mf}{2712.7}\PY{p}{]}\PY{p}{,}
+                 \PY{p}{[}\PY{l+m+mf}{4655.11}\PY{p}{,} \PY{l+m+mf}{2800.96}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{826.919}\PY{p}{,} \PY{l+m+mf}{2823.02}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{2614.15}\PY{p}{,} \PY{l+m+mf}{2999.54}\PY{p}{]}\PY{p}{,}
+                 \PY{p}{[}\PY{l+m+mf}{3562.92}\PY{p}{,} \PY{l+m+mf}{3087.8}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{4544.79}\PY{p}{,} \PY{l+m+mf}{3165.02}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{462.855}\PY{p}{,} \PY{l+m+mf}{3231.22}\PY{p}{]}\PY{p}{,}
+                 \PY{p}{[}\PY{l+m+mf}{1400.6}\PY{p}{,} \PY{l+m+mf}{3319.47}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{2371.44}\PY{p}{,} \PY{l+m+mf}{3407.02}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mf}{3375.37}\PY{p}{,} \PY{l+m+mf}{3507.31}\PY{p}{]}\PY{p}{]}
+        \PY{n}{obj} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+               \PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+               \PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+               \PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}
+               \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{]}
+        \PY{n}{obj} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{obj}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{36}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{camera} \PY{o}{=} \PY{n}{Camera}\PY{p}{(}\PY{p}{)}
+        \PY{n}{A} \PY{o}{=} \PY{n}{camera}\PY{o}{.}\PY{n}{get\PYZus{}camera\PYZus{}parameters}\PY{p}{(}\PY{n}{obj}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{n}{image}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+        \PY{n}{camera}\PY{o}{.}\PY{n}{get\PYZus{}KRC}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} (array([[ 1.25885915e+04, -1.58399428e+02,  2.99455515e+03],
+                [ 0.00000000e+00,  1.25730165e+04,  2.55155358e+03],
+                [ 0.00000000e+00,  0.00000000e+00,  1.00000000e+00]]),
+         array([[-1.75295596e-03,  1.29223954e-05, -3.80676721e-04],
+                [-1.58756129e-04, -1.65446782e-03,  6.74884489e-04],
+                [ 3.46234380e-04, -6.93185107e-04, -1.61788519e-03]]),
+         array([[ 0.14284853],
+                [-0.0312802 ],
+                [ 1.        ]]))
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{display}\PY{p}{(}\PY{n}{camera}\PY{o}{.}\PY{n}{get\PYZus{}image\PYZus{}coordinates}\PY{p}{(}\PY{n}{obj}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{:}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{image}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+[array([1399.86342903, 3313.63124042]),
+ array([2376.7373707 , 3416.36005284]),
+ array([3384.85276629, 3522.37424049])]
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+[[1400.6, 3319.47], [2371.44, 3407.02], [3375.37, 3507.31]]
+    \end{verbatim}
+
+    
+    \hypertarget{question-2-ransac}{%
+\section{Question 2 (RANSAC)}\label{question-2-ransac}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{camera}\PY{o}{.}\PY{n}{RANSAC}\PY{p}{(}\PY{n}{obj}\PY{p}{,} \PY{n}{image}\PY{p}{,} \PY{n}{iterations}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/home/aman/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:40: RuntimeWarning: divide by zero encountered in true\_divide
+/home/aman/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:40: RuntimeWarning: invalid value encountered in true\_divide
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} (array([[ 1.24251814e+04, -1.23733323e+02,  2.96846809e+03],
+                [ 0.00000000e+00,  1.24048548e+04,  2.59598622e+03],
+                [ 0.00000000e+00,  0.00000000e+00,  1.00000000e+00]]),
+         array([[-1.77600532e-03,  1.25884537e-05, -3.94470885e-04],
+                [-1.64938377e-04, -1.67567035e-03,  6.89118880e-04],
+                [ 3.58554153e-04, -7.08470910e-04, -1.63690822e-03]]),
+         array([[ 0.14703913],
+                [-0.03498347],
+                [ 1.        ]]))
+\end{Verbatim}
+            
+    \hypertarget{question-4}{%
+\section{Question 4}\label{question-4}}
+
+    We are given images of checker board. The checkerboard has inner point
+of shape \textbf{8X6}. I've used findChessboardCorners to find corners
+that are inside. Then I've used cv.cameraCalibrate function It resturns
+the distortion matrix. Using this distortion matrix and camera matrix we
+can find new camera matrix. Which in then used to undistort image.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k+kn}{from} \PY{n+nn}{glob} \PY{k}{import} \PY{n}{glob}
+        \PY{n}{criteria} \PY{o}{=} \PY{p}{(}\PY{n}{cv}\PY{o}{.}\PY{n}{TERM\PYZus{}CRITERIA\PYZus{}EPS} \PY{o}{+} \PY{n}{cv}\PY{o}{.}\PY{n}{TERM\PYZus{}CRITERIA\PYZus{}MAX\PYZus{}ITER}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{,} \PY{l+m+mf}{0.001}\PY{p}{)}
+        \PY{n}{objp} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{6} \PY{o}{*} \PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{float32}\PY{p}{)}
+        \PY{n}{objp}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mgrid}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{6}\PY{p}{]}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{objpoints} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{imgpoints} \PY{o}{=} \PY{p}{[}\PY{p}{]} 
+        \PY{n}{img\PYZus{}path} \PY{o}{=} \PY{n}{glob}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{*.JPG}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{img\PYZus{}path}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{IMG\PYZus{}5455.JPG}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{for} \PY{n}{path} \PY{o+ow}{in} \PY{n}{img\PYZus{}path}\PY{p}{:}
+             \PY{n}{img} \PY{o}{=} \PY{n}{cv}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{n}{path}\PY{p}{)}
+             \PY{n}{gray} \PY{o}{=} \PY{n}{cv}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{img}\PY{p}{,} \PY{n}{cv}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2GRAY}\PY{p}{)}
+             \PY{n}{ret}\PY{p}{,} \PY{n}{corners} \PY{o}{=} \PY{n}{cv}\PY{o}{.}\PY{n}{findChessboardCorners}\PY{p}{(}\PY{n}{gray}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{,} \PY{k+kc}{None}\PY{p}{)}
+             \PY{k}{if} \PY{n}{ret} \PY{o}{==} \PY{k+kc}{True}\PY{p}{:}
+                 \PY{n}{objpoints}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{objp}\PY{p}{)}
+                 \PY{n}{corners2} \PY{o}{=} \PY{n}{cv}\PY{o}{.}\PY{n}{cornerSubPix}\PY{p}{(}\PY{n}{gray}\PY{p}{,} \PY{n}{corners}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{11}\PY{p}{,} \PY{l+m+mi}{11}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{criteria}\PY{p}{)}
+                 \PY{n}{imgpoints}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{corners}\PY{p}{)}
+                 \PY{n}{cv}\PY{o}{.}\PY{n}{waitKey}\PY{p}{(}\PY{l+m+mi}{2000}\PY{p}{)}
+             \PY{n}{cv}\PY{o}{.}\PY{n}{destroyAllWindows}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{ret}\PY{p}{,} \PY{n}{mtx}\PY{p}{,} \PY{n}{dist}\PY{p}{,} \PY{n}{rvecs}\PY{p}{,} \PY{n}{tvecs} \PY{o}{=} \PY{n}{cv}\PY{o}{.}\PY{n}{calibrateCamera}\PY{p}{(}
+             \PY{n}{objpoints}\PY{p}{,} \PY{n}{imgpoints}\PY{p}{,} \PY{p}{(}\PY{n}{gray}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{gray}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{k+kc}{None}\PY{p}{,} \PY{k+kc}{None}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{im\PYZus{}\PYZus{}\PYZus{}} \PY{o}{=} \PY{n}{cv}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{IMG\PYZus{}5457.JPG}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{im\PYZus{}\PYZus{}\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} <matplotlib.image.AxesImage at 0x7f3df9bd6f60>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{h}\PY{p}{,} \PY{n}{w} \PY{o}{=} \PY{n}{im\PYZus{}\PYZus{}\PYZus{}}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}
+         \PY{n}{new\PYZus{}camera\PYZus{}mtx}\PY{p}{,} \PY{n}{roi} \PY{o}{=} \PY{n}{cv}\PY{o}{.}\PY{n}{getOptimalNewCameraMatrix}\PY{p}{(}\PY{n}{mtx}\PY{p}{,} \PY{n}{dist}\PY{p}{,} \PY{p}{(}\PY{n}{w}\PY{p}{,} \PY{n}{h}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,}
+                                                            \PY{p}{(}\PY{n}{w}\PY{p}{,} \PY{n}{h}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} print(new\PYZus{}camera\PYZus{}mtx, mtx)}
+         \PY{n}{dst} \PY{o}{=} \PY{n}{cv}\PY{o}{.}\PY{n}{undistort}\PY{p}{(}\PY{n}{im\PYZus{}\PYZus{}\PYZus{}}\PY{p}{,} \PY{n}{mtx}\PY{p}{,} \PY{n}{dist}\PY{p}{,} \PY{k+kc}{None}\PY{p}{,} \PY{n}{new\PYZus{}camera\PYZus{}mtx}\PY{p}{)}
+         \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{w}\PY{p}{,} \PY{n}{h} \PY{o}{=} \PY{n}{roi}
+         \PY{n}{dst} \PY{o}{=} \PY{n}{cv}\PY{o}{.}\PY{n}{resize}\PY{p}{(}\PY{n}{dst}\PY{p}{,} \PY{p}{(}\PY{n}{h}\PY{p}{,} \PY{n}{w}\PY{p}{)}\PY{p}{)}
+         \PY{n}{dst} \PY{o}{=} \PY{n}{dst}\PY{p}{[}\PY{n}{y}\PY{p}{:}\PY{n}{y} \PY{o}{+} \PY{n}{h}\PY{p}{,} \PY{n}{x}\PY{p}{:}\PY{n}{x} \PY{o}{+} \PY{n}{w}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} print(dst)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{dst}\PY{p}{)}
+         \PY{n}{cv}\PY{o}{.}\PY{n}{imwrite}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{undistorted.jpg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{dst}\PY{p}{)}
+         \PY{n}{cv}\PY{o}{.}\PY{n}{waitKey}\PY{p}{(}\PY{l+m+mi}{2000}\PY{p}{)}
+         \PY{n}{cv}\PY{o}{.}\PY{n}{destroyAllWindows}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{display}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ret}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{ret}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mtx}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{mtx}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dist}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{dist}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rvecs}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{rvecs}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tvecs}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{tvecs}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+'ret'
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+2.2884151455296062
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+'mtx'
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+array([[1.36415094e+04, 0.00000000e+00, 3.31635881e+03],
+       [0.00000000e+00, 1.36632517e+04, 1.50037396e+03],
+       [0.00000000e+00, 0.00000000e+00, 1.00000000e+00]])
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+'dist'
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+array([[ 9.79057908e-02,  9.45876425e+00, -1.53012034e-02,
+         2.72096493e-02, -1.48434591e+02]])
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+'rvecs'
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+[array([[ 0.224736  ],
+        [-0.40391396],
+        [-0.05729597]]), array([[-0.38062218],
+        [ 0.00937555],
+        [ 0.06939662]]), array([[-0.19331795],
+        [-0.38351388],
+        [-0.00385092]]), array([[ 0.24480949],
+        [-0.32074973],
+        [ 0.02437853]]), array([[-0.00934508],
+        [-0.41443156],
+        [-0.03564632]]), array([[-0.44170342],
+        [-0.42401968],
+        [ 0.05266029]]), array([[ 0.01632709],
+        [-0.61709955],
+        [-0.07773616]]), array([[-0.01040574],
+        [-0.04719484],
+        [-0.00305521]]), array([[0.00513069],
+        [0.30996097],
+        [0.06536842]]), array([[-0.32562264],
+        [-0.22056304],
+        [-0.01697744]]), array([[0.3105252 ],
+        [0.0684347 ],
+        [0.07015431]]), array([[-0.37489968],
+        [-0.48549731],
+        [ 0.02866769]]), array([[ 0.34965336],
+        [-0.56196712],
+        [-0.06068481]]), array([[-0.11408779],
+        [-0.29596135],
+        [ 0.00481932]]), array([[-0.00628759],
+        [ 0.22827803],
+        [ 0.03519236]])]
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+'tvecs'
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+[array([[-4.63768612],
+        [-0.89986242],
+        [38.70403393]]), array([[-4.20789684],
+        [-2.26805866],
+        [35.06790501]]), array([[-3.54440684],
+        [-2.03938703],
+        [31.92571791]]), array([[-5.59967776],
+        [-1.21713138],
+        [34.98571624]]), array([[-4.48832387],
+        [-1.77689402],
+        [28.99878095]]), array([[-4.4561796 ],
+        [-2.28203658],
+        [33.30645999]]), array([[-4.11373552],
+        [-1.74328426],
+        [28.33627768]]), array([[-5.09954028],
+        [-2.0599507 ],
+        [30.85011107]]), array([[-4.76286421],
+        [-2.13319095],
+        [32.66230913]]), array([[-5.10103684],
+        [-1.86779325],
+        [35.9587791 ]]), array([[-5.26909064],
+        [-1.69789282],
+        [30.50435301]]), array([[-5.12745147],
+        [-2.04767454],
+        [34.70799057]]), array([[-2.12512359],
+        [-1.32570061],
+        [29.33561584]]), array([[-4.13203861],
+        [-1.94212036],
+        [38.58165265]]), array([[-5.02987713],
+        [-1.97111128],
+        [32.32626637]])]
+    \end{verbatim}
+
+    
+    \hypertarget{question-5}{%
+\section{Question 5}\label{question-5}}
+
+    I have drawn image of 3-D cube. I have taken a unit cube with one point
+at origin. Then used the calculated camera matrix form DLT to find image
+coordinates. These points are then connected to form cube.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{measurement} \PY{o}{=} \PY{n}{cv}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{measurements.jpg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{wireframe\PYZus{}iamge} \PY{o}{=} \PY{n}{cv}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{IMG\PYZus{}5455.JPG}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{wireframe\PYZus{}iamge} \PY{o}{=} \PY{n}{cv}\PY{o}{.}\PY{n}{resize}\PY{p}{(}\PY{n}{wireframe\PYZus{}iamge}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{548}\PY{p}{,} \PY{l+m+mi}{365}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{measurement}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{n}{wireframe\PYZus{}iamge}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{predicted\PYZus{}points} \PY{o}{=} \PY{n}{camera}\PY{o}{.}\PY{n}{get\PYZus{}image\PYZus{}coordinates}\PY{p}{(}\PY{n}{obj}\PY{p}{)}
+         \PY{n}{\PYZus{}3d\PYZus{}corners} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{float32}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                                   \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{72}
+         \PY{n}{cube\PYZus{}corners\PYZus{}2d} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{camera}\PY{o}{.}\PY{n}{get\PYZus{}image\PYZus{}coordinates}\PY{p}{(}\PY{n}{\PYZus{}3d\PYZus{}corners}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{10}
+         \PY{n}{cube\PYZus{}corners\PYZus{}2d} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{cube\PYZus{}corners\PYZus{}2d}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{int32}\PY{p}{)}
+         \PY{n}{red} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{255}\PY{p}{)}
+         \PY{n}{line\PYZus{}width} \PY{o}{=} \PY{l+m+mi}{2}
+         
+         \PY{c+c1}{\PYZsh{}first draw the base in red}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{:}
+             \PY{n}{cv}\PY{o}{.}\PY{n}{line}\PY{p}{(}\PY{n}{wireframe\PYZus{}iamge}\PY{p}{,} \PY{n+nb}{tuple}\PY{p}{(}\PY{n}{cube\PYZus{}corners\PYZus{}2d}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                     \PY{n+nb}{tuple}\PY{p}{(}\PY{n}{cube\PYZus{}corners\PYZus{}2d}\PY{p}{[}\PY{p}{(}\PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{red}\PY{p}{,} \PY{n}{line\PYZus{}width}\PY{p}{)}
+             \PY{n}{cv}\PY{o}{.}\PY{n}{line}\PY{p}{(}\PY{n}{wireframe\PYZus{}iamge}\PY{p}{,} \PY{n+nb}{tuple}\PY{p}{(}\PY{n}{cube\PYZus{}corners\PYZus{}2d}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                     \PY{n+nb}{tuple}\PY{p}{(}\PY{n}{cube\PYZus{}corners\PYZus{}2d}\PY{p}{[}\PY{n}{i} \PY{o}{+} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{red}\PY{p}{,} \PY{n}{line\PYZus{}width}\PY{p}{)}
+             \PY{n}{cv}\PY{o}{.}\PY{n}{line}\PY{p}{(}\PY{n}{wireframe\PYZus{}iamge}\PY{p}{,} \PY{n+nb}{tuple}\PY{p}{(}\PY{n}{cube\PYZus{}corners\PYZus{}2d}\PY{p}{[}\PY{l+m+mi}{4} \PY{o}{+} \PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                     \PY{n+nb}{tuple}\PY{p}{(}\PY{n}{cube\PYZus{}corners\PYZus{}2d}\PY{p}{[}\PY{p}{(}\PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{l+m+mi}{4} \PY{o}{+} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{red}\PY{p}{,} \PY{n}{line\PYZus{}width}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{wireframe\PYZus{}iamge}\PY{p}{)}
+         \PY{n}{cv}\PY{o}{.}\PY{n}{waitKey}\PY{p}{(}\PY{l+m+mi}{5000}\PY{p}{)}
+         \PY{n}{cv}\PY{o}{.}\PY{n}{destroyAllWindows}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(365, 548, 3) (365, 548, 3)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{question-7}{%
+\section{Question 7}\label{question-7}}
+
+    I have drawn image of 3-D cube. I have taken a cube with one point at
+origin. Then used the calculated camera matrix form DLT to find image
+coordinates. These points are then connected to form cube.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{img\PYZus{}index} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{wireframe\PYZus{}iamge} \PY{o}{=} \PY{n}{cv}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{n}{img\PYZus{}path}\PY{p}{[}\PY{n}{img\PYZus{}index}\PY{p}{]}\PY{p}{)}
+         \PY{n}{wireframe\PYZus{}iamge} \PY{o}{=} \PY{n}{cv}\PY{o}{.}\PY{n}{resize}\PY{p}{(}\PY{n}{wireframe\PYZus{}iamge}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{548}\PY{p}{,} \PY{l+m+mi}{365}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}     \PYZus{}3d\PYZus{}corners = np.float32([[0,0,0], [1,0,0], [1,0,1], [0,0,1],}
+         \PY{c+c1}{\PYZsh{}                                    [0,1,0],[1,1,0],[1,1,1],[0,1,1]])*2}
+         \PY{n}{\PYZus{}3d\PYZus{}corners} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{float32}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+                                   \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{cube\PYZus{}corners\PYZus{}2d}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{cv}\PY{o}{.}\PY{n}{projectPoints}\PY{p}{(}\PY{n}{\PYZus{}3d\PYZus{}corners}\PY{p}{,} \PY{n}{rvecs}\PY{p}{[}\PY{n}{img\PYZus{}index}\PY{p}{]}\PY{p}{,}
+                                               \PY{n}{tvecs}\PY{p}{[}\PY{n}{img\PYZus{}index}\PY{p}{]}\PY{p}{,} \PY{n}{mtx}\PY{p}{,} \PY{n}{dist}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{cube\PYZus{}corners\PYZus{}2d}\PY{p}{)}
+         \PY{n}{cube\PYZus{}corners\PYZus{}2d} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{cube\PYZus{}corners\PYZus{}2d}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{int32}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{10}
+         \PY{n}{cube\PYZus{}corners\PYZus{}2d} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{cube\PYZus{}corners\PYZus{}2d}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{int32}\PY{p}{)}
+         \PY{n}{red} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{255}\PY{p}{)}
+         \PY{n}{line\PYZus{}width} \PY{o}{=} \PY{l+m+mi}{2}
+         \PY{n}{cv}\PY{o}{.}\PY{n}{circle}\PY{p}{(}\PY{n}{wireframe\PYZus{}iamge}\PY{p}{,} \PY{n+nb}{tuple}\PY{p}{(}\PY{n}{cube\PYZus{}corners\PYZus{}2d}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{255}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}
+                   \PY{l+m+mi}{10}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{:}
+             \PY{n}{cv}\PY{o}{.}\PY{n}{line}\PY{p}{(}\PY{n}{wireframe\PYZus{}iamge}\PY{p}{,} \PY{n+nb}{tuple}\PY{p}{(}\PY{n}{cube\PYZus{}corners\PYZus{}2d}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                     \PY{n+nb}{tuple}\PY{p}{(}\PY{n}{cube\PYZus{}corners\PYZus{}2d}\PY{p}{[}\PY{p}{(}\PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{red}\PY{p}{,} \PY{n}{line\PYZus{}width}\PY{p}{)}
+             \PY{n}{cv}\PY{o}{.}\PY{n}{line}\PY{p}{(}\PY{n}{wireframe\PYZus{}iamge}\PY{p}{,} \PY{n+nb}{tuple}\PY{p}{(}\PY{n}{cube\PYZus{}corners\PYZus{}2d}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                     \PY{n+nb}{tuple}\PY{p}{(}\PY{n}{cube\PYZus{}corners\PYZus{}2d}\PY{p}{[}\PY{n}{i} \PY{o}{+} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{red}\PY{p}{,} \PY{n}{line\PYZus{}width}\PY{p}{)}
+             \PY{n}{cv}\PY{o}{.}\PY{n}{line}\PY{p}{(}\PY{n}{wireframe\PYZus{}iamge}\PY{p}{,} \PY{n+nb}{tuple}\PY{p}{(}\PY{n}{cube\PYZus{}corners\PYZus{}2d}\PY{p}{[}\PY{l+m+mi}{4} \PY{o}{+} \PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                     \PY{n+nb}{tuple}\PY{p}{(}\PY{n}{cube\PYZus{}corners\PYZus{}2d}\PY{p}{[}\PY{p}{(}\PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{l+m+mi}{4} \PY{o}{+} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{red}\PY{p}{,} \PY{n}{line\PYZus{}width}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(} \PY{n}{wireframe\PYZus{}iamge}\PY{p}{)}
+         \PY{n}{cv}\PY{o}{.}\PY{n}{waitKey}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{cv}\PY{o}{.}\PY{n}{destroyAllWindows}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[[1691.7856 1180.4619]]
+
+ [[1734.4331 2194.8586]]
+
+ [[2697.008  2077.8787]]
+
+ [[2673.8481 1089.0623]]
+
+ [[2017.4512 1391.128 ]]
+
+ [[2056.7166 2474.699 ]]
+
+ [[3079.335  2341.309 ]]
+
+ [[3061.4465 1285.9208]]]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{question-8}{%
+\section{Question 8}\label{question-8}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{camera}\PY{o}{.}\PY{n}{get\PYZus{}image\PYZus{}coordinates}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[array([4799.7845533 , 2162.02135484])]
+
+    \end{Verbatim}
+
+    \hypertarget{observations}{%
+\section{Observations:}\label{observations}}
+
+Results observed from DLT and RANSAC are satisfactory. Because I've used
+33 points to calibrate camera in DLT. The camera used for images are
+different.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
